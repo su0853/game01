@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+
+<ScrollPane fx:id="scrollPane"
+            fx:controller="com.game01.controller.GameController"
+            xmlns:fx="http://javafx.com/fxml">
+    <content>
+        <Pane fx:id="mapContainer" prefWidth="2000.0" prefHeight="1000.0"/>
+    </content>
+</ScrollPane>

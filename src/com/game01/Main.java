@@ -13,6 +13,8 @@ public class Main extends Application {
         // 注册场景
         SceneManager.register("Room",       "/fxml/RoomScene.fxml");
         SceneManager.register("RoleSelect", "/fxml/RoleSelectScene.fxml");
+        SceneManager.register("GameScene", "/fxml/GameScene.fxml");
+
 
         // 显示 RoomScene（也可先显示一个 StartScene）
         stage.setTitle("多人合作遊戲");

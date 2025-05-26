@@ -28,7 +28,9 @@ public class RoleSelectController {
     /** 注入 Map ID */
     public void setMapId(String mapId) {
         this.mapId = mapId;
-        mapLabel.setText("關卡：" + mapId);
+        if (mapLabel != null) {
+            mapLabel.setText("關卡：" + mapId);
+        }
     }
 
     @FXML
@@ -40,6 +42,7 @@ public class RoleSelectController {
     public void onSelectFast() {
         sendChoice("角色A");
     }
+
     @FXML
     public void onSelectHigh() {
         sendChoice("角色B");
@@ -49,8 +52,7 @@ public class RoleSelectController {
     public void onBack() {
         // 回房間
         SceneManager.switchTo("Room", ctrl -> {
-            // 讓 RoomController 能恢復原本狀態
-            ((RoomController)ctrl).onJoinRoom();
+            ((RoomController) ctrl).onJoinRoom();
         });
     }
 
@@ -60,20 +62,25 @@ public class RoleSelectController {
         roleAFastBtn.setDisable(true);
         roleBHighBtn.setDisable(true);
 
-        // 發選角消息
+        // 發送選角訊息
         String msg = gson.toJson(new RoleMsg(clientId, role));
         client.send(msg);
     }
 
     private void onServerMessage(String text) {
-        // 收到其他玩家的選角或 START
         Platform.runLater(() -> {
             if ("START".equals(text)) {
                 statusLabel.setText("遊戲開始！");
-                // 這裏可切到真正的 GameScene…
+                // ✅ 切換至 GameScene 並注入參數
+                SceneManager.switchTo("GameScene", ctrl -> {
+                    GameController gameController = (GameController) ctrl;
+                    gameController.setClient(client);
+                    gameController.setMapId(mapId);
+                });
                 return;
             }
-            // 嘗試解析選角消息
+
+            // 嘗試解析選角訊息
             try {
                 RoleMsg rm = gson.fromJson(text, RoleMsg.class);
                 if (!rm.sender.equals(clientId)) {
@@ -84,6 +91,7 @@ public class RoleSelectController {
         });
     }
 
+    /** GSON 傳輸用角色資料結構 */
     static class RoleMsg {
         String sender, role;
         RoleMsg(String s, String r) { sender = s; role = r; }

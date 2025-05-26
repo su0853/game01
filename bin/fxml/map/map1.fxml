@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane xmlns:fx="http://javafx.com/fxml" prefWidth="2000" prefHeight="1000">
+    <!-- 簡單地面 -->
+    <Rectangle x="0" y="950" width="2000" height="50" fill="gray"/>
+</Pane>
