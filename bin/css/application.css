@@ -1,0 +1,5 @@
+/* resources/css/application.css */
+.root {
+  -fx-font-family: "Segoe UI", Arial, sans-serif;
+  -fx-background-color: lightgray;
+}
